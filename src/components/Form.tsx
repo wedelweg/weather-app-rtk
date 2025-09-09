@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchWeather } from "../features/api/fetchWeather.js";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { useAppDispatch } from "../app/store";
+import { fetchWeather } from "../features/api/fetchWeather";
 
 const Form = () => {
     const [city, setCity] = useState("");
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const getCity = (e) => {
+    const getCity = (e: FormEvent) => {
         e.preventDefault();
         if (city.trim()) {
             dispatch(fetchWeather(city));
@@ -20,7 +20,9 @@ const Form = () => {
                 type="text"
                 placeholder="City"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setCity(e.target.value)
+                }
             />
             <button type="submit">Get weather</button>
         </form>
